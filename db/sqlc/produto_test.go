@@ -53,3 +53,21 @@ func TestDeleteProduto(t *testing.T) {
 
 	require.NoError(t, err)
 }
+
+func TestUpdateProduto(t *testing.T) {
+	produtoCriado := createdProdutoRandom(t)
+
+	arg := UpdateProdutoParams{
+		ID:    produtoCriado.ID,
+		Nome:  "Outro_nome",
+		Preco: 9883,
+	}
+
+	produtoMudado, err := testQueries.UpdateProduto(context.Background(), arg)
+
+	require.NoError(t, err)
+	require.Equal(t, produtoCriado.ID, produtoMudado.ID)
+	require.Equal(t, arg.Nome, produtoMudado.Nome)
+	require.Equal(t, arg.Preco, produtoMudado.Preco)
+	require.Equal(t, produtoCriado.CriadoEm, produtoMudado.CriadoEm)
+}
