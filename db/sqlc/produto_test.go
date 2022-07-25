@@ -71,3 +71,21 @@ func TestUpdateProduto(t *testing.T) {
 	require.Equal(t, arg.Preco, produtoMudado.Preco)
 	require.Equal(t, produtoCriado.CriadoEm, produtoMudado.CriadoEm)
 }
+
+func TestGetProdutos(t *testing.T) {
+	produtoCriado := createdProdutoRandom(t)
+
+	produtoAchado, err := testQueries.GetProdutos(context.Background())
+
+	require.NoError(t, err)
+	require.NotEmpty(t, produtoCriado)
+	require.NotEmpty(t, produtoAchado)
+
+	for _, produtos := range produtoAchado {
+		require.NotEmpty(t, produtos.ID)
+		require.NotEmpty(t, produtos.Nome)
+		require.NotEmpty(t, produtos.Preco)
+		require.NotEmpty(t, produtos.CriadoEm)
+	}
+
+}
