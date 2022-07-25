@@ -30,7 +30,7 @@ func TestCreatedProduto(t *testing.T) {
 	createdProdutoRandom(t)
 }
 
-func TestGetProdutos(t *testing.T) {
+func TestGetProduto(t *testing.T) {
 	produtoCriado := createdProdutoRandom(t)
 
 	produtoAchado, err := testQueries.GetProduto(context.Background(), produtoCriado.ID)
@@ -44,4 +44,12 @@ func TestGetProdutos(t *testing.T) {
 	require.Equal(t, produtoCriado.ID, produtoAchado.ID)
 	require.Equal(t, produtoCriado.CriadoEm, produtoAchado.CriadoEm)
 
+}
+
+func TestDeleteProduto(t *testing.T) {
+	produtoCriado := createdProdutoRandom(t)
+
+	err := testQueries.DeleteProduto(context.Background(), produtoCriado.ID)
+
+	require.NoError(t, err)
 }
