@@ -15,6 +15,11 @@ func InstanceServer(store *db.ExecuteStore) *Server {
 	router := gin.Default()
 
 	// Aqui vai ficar as rotas
+	router.POST("/produto", server.createProduto)
+	router.GET("/produto/:id", server.getProduto)
+	router.GET("/produtos", server.getProdutos)
+	router.DELETE("/produto/:id", server.deleteProduto)
+	router.PUT("/produto", server.updateProduto)
 
 	server.router = router
 	return server
